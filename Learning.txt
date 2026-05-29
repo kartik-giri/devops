@@ -1,0 +1,17 @@
+CREATING A AWS EVC2 VM INSTANCE:
+1. Name a EC2 instance.
+2. Seclected OS
+3. Selected os version
+4. Selected instance specificatons type.
+5. Created private public key.
+6. Added new security group open port 3000 and 22
+7. Added 16 gb storage.
+
+8. Create elastic public IP address.
+9. Add Associate public IP address with EC2 instance.
+
+10. Move private key from download to root folder.
+11. run chmod 400 "deploy-on-EC2.pem" -> means other users have no access for read, write it.
+12. than finally run:
+ssh -i "deploy-on-EC2.pem" ubuntu@ec2-15-206-99-203.ap-south-1.compute.amazonaws.com
+It means -i-> input is user private key ubuntu is username we are using VM domain name also can use it's public IP address.
