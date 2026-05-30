@@ -32,7 +32,7 @@ http://15.206.99.203:8080/todos returns the response.
 22 http://13.207.47.42:8080/todos Need to convert it more human readiable form.
 23. We are adding port to get the running process. BUt how others are doing withour port?
 24: https://www.google.com/ -> https means port 443 by default AND http port is 80 by default.
-25. SO what is the assumed solution to remove 8080 is to run process on port 80 right? But os stops processes from running on port 80.
+25. SO what the assumed solution is to remove 8080 is to run process on port 80 right? But os stops processes from running on port 80.
 26. vi filename is cmmd to open file for editing on linux based os.
 
 27. Let's we gave the access to run process on port 80 now myapp.com will run on port 80. But if i have another process mysaas.com than it will not run on port 80. 
@@ -46,7 +46,7 @@ http://15.206.99.203:8080/todos returns the response.
 
 30. SO the solution for our path problem is ngnix reverse proxy.
     Nginx will run on port 80 and our processes will run on different port like myapp.com -> 3000, mysaas.com -> 3001
-    And Ngnix reverse proxy will route the traffic accordinagly on the basic of domain name.
+    And Ngnix reverse proxy will route the traffic accordinagly on the basis of domain name.
 
 31. And cause Nginx is running on port 80 there is no need to define port in the path. For example if client types http://myapp.com -> this path will run nginx and nginx will route the traffic to the process which matches the domain name.
 
@@ -55,7 +55,7 @@ http://15.206.99.203:8080/todos returns the response.
 
 33. Need to open port 80 in security group.
 34. As we know domain underneth points to public IP address of server. We do this while getting domain. Multiple domains can point to same server public IP 
-35. Now need to conginure nginx so that it route traffic from certain domain name to certain process.
+35. Now need to configure nginx so that it route traffic from certain domain name to certain process.
 36. By editing -> sudo vi /etc/nginx/nginx.conf
     sudo -> super user user.
 37. Here we are configuring nginx to route traffic to associated process on the basic of domain.
