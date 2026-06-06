@@ -236,3 +236,5 @@ jobs:
 
 29. In CD github runner VM needs private key to access our EC2 which will have public key.
     Generate public private key in local mahcine add private key in repo secret and public in our EC2.
+30. The error i face while pushing code in EC2. was that github VM successfully ssh in to EC2 when it comes to running commands it can't find deploy.sh which is not present in EC2 solution just write the cmds directly on scripts.
+31. COde is inside cicd_demo repo
