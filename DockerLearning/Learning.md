@@ -20,7 +20,24 @@ Production servers
 
 ## Starting docker locally
 1. Install docker engine and cli to intract with docker engine.
-2. docker run -p 27017:27017 mongo -> to install monog image locally and run whole container.
-3. docker images ->  to see running images
+2. docker run -p 27017:27017 mongo -> to install mongo image locally and run whole container.
+3. docker images ->  to see all installed images
 4. docker rmi a706cb4e493b(process ID) --force -> to delete image
 5. docker ps -> to seel all running containers
+
+6. An image which is in execution/running is called container.
+
+## VM vs Container
+- A VM virtualizes hardware and runs a complete guest operating system with its own kernel.
+- Container vertualized the operating system environment, package the application, it's dependecies, files system etc. but shares host operating system kernel.
+
+## Image vs Container
+1. Docker image is a lightweight, standalone, executable pacakge which include everything needed to run a piece of software including codebase, runtime, dependcies , environment var etc.
+2. Docker container is the running instance fo image. It encapsualtes the appilcation or service and runs it in an isolated environment.
+
+## Port Mapping
+1. Port is a logical virtual endpoint which is used by operating system to route nextowrk traffic to specific correct process.
+2. Port is a logical virtual endpoint that the operating system uses to route network traffic to the correct, specific process.
+
+3. In docker we need to expose the port of running container to the host machine.
+4. docker run -p 27018:27017 mongo -> mongo container default port is 27017 every mongo container will run on port:27017 to expose it and access the container we need to do port mapping which link the container port to host machine port. 
