@@ -104,3 +104,78 @@ Container shares:
 
 ## Docker Layers
 1. Docker Layers are the fundamental part in the image architecture, that allows docker to efficient, fast and portable. The docker image is essnetialy build up from a series of layers, each layer reporesenting set of diefferences from the previous layer.
+2. it has 4 layers:
+```javascript
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
+```
+
+## Why layers?
+1. Cache stores the data temporary so that machine don't fetch or compute it again.
+2. Caching stores the output of the command and skips the cmd execution if input hasn't changes and directly gives the cached output to save the time. 
+
+3. The docker layers are cached and reused if the input hasn't changed. To make image build and sharing more fast and efficient.
+4. If i change the repo than the layers  before copy . .will be reused but after copy . . all these layers will be rebuild.
+5. If the input hasn't changed than Docker can resue the cached layers.
+
+## Optimize docker file
+1. 
+```javascript
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
+```
+2. Here when ever dev changes the source code. npm install layer is rebuilding again which usually takes alot of time.
+3. To optimize this just copy package and package.lock-hcon above and run npm install.
+4. Now if i change source code only copy . . layer will rebuild and npm install cached layer will be reused cause it hasn't changed. 
+
+## Volume
+1. If container craches or closed than data get deleted too and memory allocated to container get free.
+2. If we are storing data in mongo container and mongo container get closes than all the data will be lost.
+3. To presist the container data we use Volume. Containers are stateless.
+
+4. docker volume create volume_Name -> Creates the volume
+5. docker run -p 27017:27107 -v volume_Name:/data/db mongo -> It sync the db data with volume.
+6. MongoDB stores data in /data/db
+-  That folder is linked to a volume
+-  Volume persists on your machine even after container stops ✅
+
+7. docker volume ls -> to gett all volumes
+8. Now data persist even after restarting mongo container.
+
+
+## Network
+1. I started mongo db container with volume on exposed port 27017.
+2. And created my express server which is listening on host machine port 300.
+3. Express server is accessing mongoDB container on port 27017 successfully. 
+
+4. But if containerize the express app too and run it as container? THan how express app container can access mongoDB container????
+5. BUild the express app. 
+ => [2/6] WORKDIR /app top 2 layers are resused because they exist in different image.
+6. Now when I run express app container it can't access mongoDB container. Because in express app connecting to localhost:27017 means express app container is checking in it's own port 27107.
+
+7. So the solution of one container can't access another container is networks.
+8. docker network create network_Name -> create network.
+9. docker run --name mongo_container --network express_mongo_net -p 27017:27017 -v mongoDB_volume:/data/db mongo
+-  --name mongo_container -> giving name to the container on network.
+-  --network express_mongo_net -> listen on this bridge network.
+10. Now in express container becuase both container are on same netwwork. express container can access mongo container using it's name.
+11. BOOM it worked using mongo container name -> 'mongodb://mongo_container:27017/myDatabase';
+12. also we can remove port in start cmd cause container is accessed from network. BUt we should use port 
