@@ -181,3 +181,7 @@ CMD ["node", "index.js"]
 12. also we can remove port in start cmd cause container is accessed from network. BUt we should use port 
 
 13. Bridge network is the network which allows multiple containers to communcate with each on same host machine.
+
+## Docker -compose 
+1. Is the file used to run multiple containers at a same time on single network with synced volumes. instead of writing cmd to start image indivually we can start them together using docker compose.
+2. In docker compose when we are starting working repo we should build it again locally.
