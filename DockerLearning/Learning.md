@@ -147,7 +147,7 @@ CMD ["node", "index.js"]
 4. Now if i change source code only copy . . layer will rebuild and npm install cached layer will be reused cause it hasn't changed. 
 
 ## Volume
-1. If container craches or closed than data get deleted too and memory allocated to container get free.
+1. If container crashes or closed than data get deleted too and memory allocated to container get free.
 2. If we are storing data in mongo container and mongo container get closes than all the data will be lost.
 3. To presist the container data we use Volume. Containers are stateless.
 
@@ -179,3 +179,5 @@ CMD ["node", "index.js"]
 10. Now in express container becuase both container are on same netwwork. express container can access mongo container using it's name.
 11. BOOM it worked using mongo container name -> 'mongodb://mongo_container:27017/myDatabase';
 12. also we can remove port in start cmd cause container is accessed from network. BUt we should use port 
+
+13. Bridge network is the network which allows multiple containers to communcate with each on same host machine.
