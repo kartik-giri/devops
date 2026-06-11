@@ -184,4 +184,34 @@ CMD ["node", "index.js"]
 
 ## Docker -compose 
 1. Is the file used to run multiple containers at a same time on single network with synced volumes. instead of writing cmd to start image indivually we can start them together using docker compose.
-2. In docker compose when we are starting working repo we should build it again locally.
+
+2. Creating express, postgress node project.
+3. docker run -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 postgres -> -d run postgress in detached mode means log running service.
+4. Dev need to do all these steps manually if any one wants to run our project.
+1. Install node and npm.
+2. Clone the repo.
+3. Install dependecies - npm run install.
+4. get the DB instance either run docker or use neondb.
+5. Change the DATABASEURL in ENV.
+6. RUn migration to convert prisma code in to postgress quries so that it can run on DB.
+7. Generate client.
+8. Npm run build -> Compile ts files into js.
+9. npm run start - Start the project.
+
+5. To make application tun in container we use docker compose and dockerfile.
+
+6. I'm getting error while building express app with prisma. Error: P1001: Can't reach database server at `localhost:5432`
+7. Because while docker builds runs each RUN cmds in isolated environment that's why it can't access host machine port and neither container port.
+8. It has no access to:
+Your host machine's localhost
+Other running containers
+Any docker network you set up
+9. From first you will consider why don't we create a network and run prisma container and build the express app on same network.
+10. But there is catch cause dockerfile build steps can't access user defined networks. dockerfile Build steps can only access the host machine network. docker build --network=host -t imagename . -
+- But this access prisma only if prisma in running directly on host machine.
+- To solve
+1. I created  network.
+2. Ran prisma container on that network.
+3. Added "docker:start": "prisma migrate dev && npm start" -> it runs migration when express container starts only prisma container running,
+4. docker run --network composeapp_net -p 3000:3000 kartikgiri composeapp -> running express container on same network.
+5. BOOM, it is working now.
