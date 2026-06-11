@@ -212,6 +212,6 @@ Any docker network you set up
 - To solve
 1. I created  network.
 2. Ran prisma container on that network.
-3. Added "docker:start": "prisma migrate dev && npm start" -> it runs migration when express container starts only prisma container running,
+3. Added "docker:start": "prisma migrate dev && npm start" -> it runs migration when express container starts and only when prisma container running on same network.
 4. docker run --network composeapp_net -p 3000:3000 kartikgiri composeapp -> running express container on same network.
-5. BOOM, it is working now.
+5. BOOM, it is working now. Beacuse at end the cmd which needed prisma container is running only on network in container. cause they are runnign on same network express app can zcces prisma container.
