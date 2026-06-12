@@ -1,0 +1,22 @@
+version: '5.1.4'
+services:
+ postgres:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: mysecretpassword
+  ports:
+    - 5432:5432
+
+
+ compose_app:
+  build:
+    context: ./
+    dockerfile: Dockerfile
+  
+  environment: 
+    - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+  
+  ports:
+    - 3000:3000
+  depends_on:
+    - postgres

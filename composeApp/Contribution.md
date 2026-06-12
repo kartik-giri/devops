@@ -11,10 +11,11 @@
 
 ## Docker installation.
 1. Install Docker
-2. Start Postgress container:
-   - docker run -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 postgres
+2. Create network - `docker create nwtwork usernetwork`
+2. Start Postgress container onnetwrok:
+   - `docker run --name postgres --network usernetwork -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 postgres`
 3. Build the image: `docker build -t userImage .`
-4. Start the image - `docker run -p 3000:3000 userImage .`
+4. Start the image - `docker run  --network usernetwrok -p 3000:3000 userImage `
 
 ## Docker Compose installation.
 - Docker compose is the file used to run multiple containers with network and volume at same using only one cmd.
