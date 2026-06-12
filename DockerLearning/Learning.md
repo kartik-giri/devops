@@ -217,3 +217,4 @@ Any docker network you set up
 5. BOOM, it is working now. Beacuse at end the cmd which needed prisma container is running only on network in container. cause they are runnign on same network express app can zcces prisma container.
 
 - docker container prune-> cmd to drlete all stopped containers
+6. Now created docker-compose.yml and run docker-compose up -> to start application and other services ans container with single cmd.

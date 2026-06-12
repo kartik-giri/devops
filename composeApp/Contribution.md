@@ -20,4 +20,4 @@
 ## Docker Compose installation.
 - Docker compose is the file used to run multiple containers with network and volume at same using only one cmd.
 1. Install Docker, docker -compose
-2. Run `docker-compose up` -> runs docker compose file.
+2. Run `docker-compose up` -> runs docker compose file. which starts all serices in container with sinlge cmd
