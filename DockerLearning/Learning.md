@@ -193,7 +193,7 @@ CMD ["node", "index.js"]
 3. Install dependecies - npm run install.
 4. get the DB instance either run docker or use neondb.
 5. Change the DATABASEURL in ENV.
-6. RUn migration to convert prisma code in to postgress quries so that it can run on DB.
+6. RUn migration to convert prisma code in to postgress quries so that it can run on DB to create table.
 7. Generate client.
 8. Npm run build -> Compile ts files into js.
 9. npm run start - Start the project.
