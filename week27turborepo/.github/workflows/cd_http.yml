@@ -1,0 +1,53 @@
+name: "Deploying http server on docker hub and VM"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./docker/http.Dockerfile
+          push: true
+          # latest is mutable — every push overwrites it. If your deployment breaks, you can't tell which build caused it, and you can't roll back to a specific version easily.
+          # github.sha makes every build immutable and traceable:
+          # push commit abc123 → image kartikgiri/http-server:abc123 gets built and pushed
+          tags: kartikgiri/http-server:${{ github.sha }}
+
+      - name: Deploy to the VM
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+           host: 3.108.207.105
+           username: ubuntu
+           key: ${{secrets.VM_PRIVATE_KEY}}
+           port: 22
+          #Runs these commands on my EC2
+          # Second cmd create temprory container and than run migration
+           script: |
+            sudo docker pull kartikgiri/http-server:${{ github.sha }}
+
+            sudo docker run --rm -e DATABASE_URL="${{ secrets.DATABASE_URL }}" kartikgiri/http-server:${{ github.sha }} sh -c "cd packages/db && bunx prisma migrate deploy"
+            
+            sudo docker stop http-server || true
+            sudo docker rm http-server || true
+
+            
+            sudo docker run --restart unless-stopped --name http-server -e DATABASE_URL="${{ secrets.DATABASE_URL }}" -d -p 3001:3001 kartikgiri/http-server:${{github.sha}}
+            sudo docker image prune -a -f
+
+
+

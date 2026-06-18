@@ -56,7 +56,7 @@ Container shares:
 1. Port is a logical virtual endpoint which is used by operating system to route nextowrk traffic to specific correct process.
 2. Port is a logical virtual endpoint that the operating system uses to route network traffic to the correct, specific process.
 
-- Port mapping in docker is the way to expost the container port to the host machine by linking the host machine port with the container port.
+- Port mapping in docker is the way to expose the container port to the host machine by linking the host machine port with the container port.
 3. In docker we need to expose the port of running container to the host machine.
 4. docker run -p 27018:27017 mongo -> mongo container default port is 27017 every mongo container will run on port:27017 to expose it and access the container we need to do port mapping which link the container port to host machine port. 
 
@@ -120,7 +120,7 @@ CMD ["node", "index.js"]
 ```
 
 ## Why layers?
-1. Cache stores the data temporary so that machine don't fetch or compute it again.
+1. Cache stores the data temporary so that process don't fetch or compute it again.
 2. Caching stores the output of the command and skips the cmd execution if input hasn't changes and directly gives the cached output to save the time. 
 
 3. The docker layers are cached and reused if the input hasn't changed. To make image build and sharing more fast and efficient.

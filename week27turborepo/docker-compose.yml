@@ -1,0 +1,60 @@
+services:
+ postgres:
+   image: postgres
+   environment:
+     - POSTGRES_PASSWORD=mysecretpassword
+   healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U postgres"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+   ports:
+     - "5432:5432"
+  
+ migrate:
+   build:
+     context: .
+     dockerfile: docker/http.Dockerfile
+   environment:
+     - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+  #  Runs migration from http container when postgres container live and running on same network
+   command: sh -c "cd packages/db && bunx prisma migrate deploy" 
+   depends_on:
+     - postgres
+
+ webapp:
+   build:
+     context: .
+     dockerfile: docker/web.Dockerfile
+     args: 
+       - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+   environment:
+     - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+   ports:
+     - "3000:3000"
+   depends_on:
+     - migrate
+
+ httpserver:
+   build:
+     context: .
+     dockerfile: docker/http.Dockerfile
+   environment:
+     - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+   ports:
+     - "3001:3001"
+   depends_on:
+     - migrate
+  
+ wsserver:
+   build:
+     context: .
+     dockerfile: docker/ws.Dockerfile
+   environment:
+     - DATABASE_URL=postgresql://postgres:mysecretpassword@postgres:5432/postgres
+   ports:
+     - "8080:8080"
+   depends_on:
+     - migrate
+   
+   
