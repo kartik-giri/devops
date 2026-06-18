@@ -19,12 +19,12 @@
 - Data serilization lang are json. yaml. xml etc.
 
 ### Where it used?
-1. Lets say i want docker to know that i want create the image of the application.
-2. How i will do that? I have to share the data between my machine and docker right?
-3. In this case i will use YAML. And wrtie yaml file(Dockerfile) where i will store the cmds to create image out of the application.
+1. Lets say i want docker to know that i want to run multiple images.
+2. How i will do that? I have to share the data between my process/machine and docker right?
+3. In this case i will use YAML. And write yaml file(docker compose file) where i write the yaml to run build and run multiple containers.
 4. Using yaml file i can share the data with docker and let it know what i want.
 
-5. For the same reason i use yaml to write githb workflows, .dcokerfile and docker compose file an other config file.
+5. For the same reason i use yaml to write githb workflows, and docker compose file an other config file.
 
 ### Benftis
 1. Simple and easy to read file.
@@ -63,3 +63,4 @@ Level 4 → 8 spaces
      docker start
      -p 3000:3000
      mongo
+
