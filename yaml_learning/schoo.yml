@@ -6,7 +6,8 @@ school:
     roll_no: 23
     age: 23
 
-Yaml is human readible serialization format whihc is used to storre and format the data and slaos share the data betwenn processes. That's why it is used in most config files.
+# Yaml is human readible serialization format whihc is used to storre and format the data and slaos share the data betwenn processes. That's why it is used in most config files.
+
 # Json for this yaml 
 # {
 #   "school": {

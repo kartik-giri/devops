@@ -95,3 +95,11 @@ WS2 sends result to browser.
 1. Queue stores jobs; workers execute them.
 2. Queue is mainly for asynchronous processing and scalability, not just security.
 3. Pub/Sub broadcasts events; WS servers route them to the correct connected client. In larger systems this is often optimized with user-specific channels rather than broadcasting to all servers.
+
+
+## REDIS
+1. Redis is an open source in memory data structure store which is used as Database, cache and message broker.
+2. The main functionality of redis is that it stores data in memory which allows high perfomance an low latency access to data.
+
+3. In memory data structure store is very similar to db but only difference is that data is store in memory.
+

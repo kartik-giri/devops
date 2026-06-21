@@ -4,7 +4,7 @@
 2. HTML -> It is mostly used to create the structure of the site. BUT how? 
 -  HTML uses pareent child relation ship. like html tag have header and body as child.
 
-3. Just like that YAML provides child parent relationship which is used to format data and exchange data. Like json.
+3. Just like that YAML provides child parent relationship which is used  to format data and exchange data. Like json.
 
 - In YAML we can only store data not cmds like condtional etc.
 
